@@ -42,12 +42,18 @@ exports.updateTodo = async function(todo){
         throw Error("Error occured while Finding the Todo")
     }
 
-    oldTodo = new ToDo({
-        title: todo.title,
-        description: todo.description,
-        date: new Date(),
-        status: todo.status
-    })
+    if(!oldTodo){
+        return false;
+    }
+
+    console.log(oldTodo)
+
+    oldTodo.title = todo.title
+    oldTodo.description = todo.description
+    oldTodo.status = todo.status
+
+
+    console.log(oldTodo)
 
     try{
         var savedTodo = await oldTodo.save()
@@ -61,6 +67,9 @@ exports.deleteTodo = async function(id){
     
     try{
         var deleted = await ToDo.remove({_id: id})
+        if(deleted.result.n === 0){
+            throw Error("Todo Could not be deleted")
+        }
         return deleted
     }catch(e){
         throw Error("Error Occured while Deleting the Todo")

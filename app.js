@@ -14,7 +14,6 @@ var bluebird = require('bluebird')
 
 var app = express();
 
-
 var mongoose = require('mongoose')
 mongoose.Promise = bluebird
 mongoose.connect('mongodb://127.0.0.1:27017/todoapp', { useMongoClient: true})
@@ -25,6 +24,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/todoapp', { useMongoClient: true})
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 });
 
